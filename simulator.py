@@ -40,12 +40,3 @@ for i in range(10):
         node_t.append(node.time)
     print("Variance: ",np.var(node_t))
     print("Range: ",np.ptp(node_t))
-
-
-
-            
-
-
-
-    
-    
