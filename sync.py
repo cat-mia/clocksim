@@ -8,13 +8,12 @@ def broadcast(Node):
 def sync_clock(Node, other_times):
     new_time = sum(other_times) / len(other_times)
     Node.set_time(new_time)
-    #print(Node.index,"th node's time: ",new_time ,"\n")
 
 # remove m largest and m smallest values
-def sync_clock_improve(Node, *other_times, m):
+def sync_clock_improve(Node, other_times, m):
     other_times.sort()
     other_times = other_times[:-m]
-    other_times = other_times[m:]
+    other_times = other_times[m+1:]
     new_time = sum(other_times) / len(other_times)
     Node.set_time(new_time)
-    print(Node.index+"th node's time: "+ new_time +"\n")
+    #print(Node.index+"th node's time: "+ new_time +"\n")
