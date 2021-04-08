@@ -29,18 +29,17 @@ for i in range(10):
             other_times = times[:node.index]+times[(node.index+1):]
             sync_clock(node,other_times)
     
-    
-    if True:
-        node_t = []
-        if (i+1) % update_interval == 0:
-            print("\nafter sync************************")
-        else:
-            print("\nbefore sync***********************")
-        print("clock ticks ",i+1," times, nodes info:")
-        for node in nodes:
-            print(node.index,"th node's time: ",node.time,"  ")
-            node_t.append(node_t)
-        print("Variance: ",np.var(node_t))
+    node_t = []
+    if (i+1) % update_interval == 0:
+        print("\nafter sync***************************")
+    else:
+        print("\nbefore sync**************************")
+    print("clock ticks ",i+1," times, nodes info:")
+    for node in nodes:
+        print(node.index,"th node's time: ",node.time,"  ")
+        node_t.append(node.time)
+    print("Variance: ",np.var(node_t))
+    print("Range: ",np.ptp(node_t))
 
 
 

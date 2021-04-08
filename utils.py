@@ -6,4 +6,4 @@ def list_equals(list , target):
     return True
 
 def approximate_equals(v1, v2 , err_rate, update_interval):
-    return abs(v1 - v2) <= err_rate * update_interval # 2 is update interval
+    return abs(v1 - v2) <= err_rate * update_interval
