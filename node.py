@@ -1,23 +1,22 @@
-
+from utils import *
 import random
+import math
 
 class Node:
     def __init__(self,index,init_t):
         self.index = index
         self.time = init_t
+        self.last_sync_time = init_t
+        self.max_err_rate = 0.3
         
     def time_clock(self):
-        max_err_rate = 1e-5
-        err_rate = random.uniform(-max_err_rate,max_err_rate)
+        # max_err_rate = 0.01
+        err_rate = random.uniform(-self.max_err_rate,self.max_err_rate)
         self.time += 1 + err_rate # clock tick once
         
     def check_time(self,update_interval):
-        return self.time / update_interval >=1 and self.time % update_interval <= 1e-5
-
-    def get_time(self):
-        return self.time
+        return approximate_equals(self.time , self.last_sync_time + update_interval, self.max_err_rate, update_interval)
 
     def set_time(self,time):
         self.time = time
-
-    
+        self.last_sync_time = time

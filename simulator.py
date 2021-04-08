@@ -1,11 +1,12 @@
 from node import *
 from sync import *
 from utils import *
+import numpy as np
 
 
-node_num = 100
+node_num = 10
 init_t =0
-update_interval = 10
+update_interval = 2 # time = t0 + i*R
 
 
 nodes = []
@@ -15,28 +16,32 @@ for index in range(node_num):
 
 
 # clock ticks 1000 times
-
-times = [-1] * node_num
-is_sync = [False] * node_num
-update_count = [0] * node_num
-
-# clock ticks 1000 times
-for i in range(1000):
+for i in range(10):
+    times = [-1] * node_num
+    is_sync = [False] * node_num
     for node in nodes:
-        node.time_clock()
+        node.time_clock() # increase time by 1 with error
         if node.check_time(update_interval):
-            update_count[node.index] += 1
             times[node.index] = broadcast(node)
-            is_sync[node.index] = True   
+            is_sync[node.index] = True
     for node in nodes:
-        if is_sync[node.index] and all_equals(update_count,target = update_count[node.index]):
-            other_times = times[0:node.index]+ times[node.index:]
+        if is_sync[node.index] and -1 not in times:
+            other_times = times[:node.index]+times[(node.index+1):]
             sync_clock(node,other_times)
     
-    if i % 100 == 0:
-        print("clock ticks ",i," times, nodes info:\n")
+    
+    if True:
+        node_t = []
+        if (i+1) % update_interval == 0:
+            print("\nafter sync************************")
+        else:
+            print("\nbefore sync***********************")
+        print("clock ticks ",i+1," times, nodes info:")
         for node in nodes:
             print(node.index,"th node's time: ",node.time,"  ")
+            node_t.append(node_t)
+        print("Variance: ",np.var(node_t))
+
 
 
             
